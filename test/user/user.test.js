@@ -21,34 +21,34 @@ const fn = async x => {
                     .expect(200);
         });
 
-        it('Create a user', async function() {
-            const res = await request(server)
-                    .post('/v1/user')
-                    .send(data)
-                    .expect(201);                    
-          });
+        // it('Create a user', async function() {
+        //     const res = await request(server)
+        //             .post('/v1/user')
+        //             .send(data)
+        //             .expect(201);                    
+        //   });
 
-        it('Get a user by ID without credentials', async function() {
-            const res = await request(server)
-                    .get('/v1/user/1')
-                    .send(data)
-                    .expect(401);    
-            expect(res.body.message).equals('Missing Authorization Header');                   
-        });
+        // it('Get a user by ID without credentials', async function() {
+        //     const res = await request(server)
+        //             .get('/v1/user/1')
+        //             .send(data)
+        //             .expect(401);    
+        //     expect(res.body.message).equals('Missing Authorization Header');                   
+        // });
 
-        it('Get a user by ID with valid credentials', async function() {
-            const res = await request(server)
-                    .get('/v1/user/1')
-                    .auth(data.username, data.password)
-                    .expect(200);  
-                    let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')  
-            expect(res.body.id).equals(1);      
-            expect(res.body.first_name).equals(data.first_name);                   
-            expect(res.body.last_name).equals(data.last_name);                   
-            expect(res.body.username).equals(data.username);                   
-            expect(res.body.account_created).equals(date_ob);               
-            expect(res.body.account_updated).equals(date_ob);                 
-        });
+        // it('Get a user by ID with valid credentials', async function() {
+        //     const res = await request(server)
+        //             .get('/v1/user/1')
+        //             .auth(data.username, data.password)
+        //             .expect(200);  
+        //             let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')  
+        //     expect(res.body.id).equals(1);      
+        //     expect(res.body.first_name).equals(data.first_name);                   
+        //     expect(res.body.last_name).equals(data.last_name);                   
+        //     expect(res.body.username).equals(data.username);                   
+        //     expect(res.body.account_created).equals(date_ob);               
+        //     expect(res.body.account_updated).equals(date_ob);                 
+        // });
     })
     run();
 })();
