@@ -3,7 +3,13 @@
 
 name: Node.js CI
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  pull_request_target:
+    types: [opened]
 
 jobs:
   build:
@@ -12,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.14.2]
+        node-version: [19.2.0]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
