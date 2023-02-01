@@ -1,4 +1,4 @@
-# webapp
+# CSYE webapp
 ## Technology Stack
 
 * Backend Technology - NodeJS

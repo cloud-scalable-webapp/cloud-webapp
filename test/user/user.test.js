@@ -40,13 +40,14 @@ const fn = async x => {
             const res = await request(server)
                     .get('/v1/user/1')
                     .auth(data.username, data.password)
-                    .expect(200);    
+                    .expect(200);  
+                    let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')  
             expect(res.body.id).equals(1);      
             expect(res.body.first_name).equals(data.first_name);                   
             expect(res.body.last_name).equals(data.last_name);                   
             expect(res.body.username).equals(data.username);                   
-            expect(res.body.account_created).to.not.equal(null);               
-            expect(res.body.account_updated).to.not.equal(null);                 
+            expect(res.body.account_created).equals(date_ob);               
+            expect(res.body.account_updated).equals(date_ob);                 
         });
     })
     run();
