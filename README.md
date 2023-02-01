@@ -25,3 +25,15 @@ Install:
 
 ## Running Tests
 * To run test, use "npm run test" command
+
+## Libraries Used:
+
+* 1. Nodemon
+* 2. Bcrypt 
+* 3. Express
+* 4. Joi
+* 5. MySQL
+* 6. Sequelize
+* 7. sqlite3
+* 8. chai
+* 9. supertest
