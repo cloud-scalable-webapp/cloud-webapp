@@ -19,17 +19,18 @@ function registerUser(req, res, next) {
         username: Joi.string().required(),
         password: Joi.string().min(6).required()
     });
-    validateRequest(req, next, schema);
+    validateRequest(req, res, next, schema);
+    next();
 }
 
 function register(req, res, next) {
-    userService.create(req.body)
+    userService.create(req.body,req,res)
         .then(user => res.status(201).json(user))
         .catch(next);
 }
 
 function getById(req, res, next) {
-    userService.getById(req.params.userId)
+    userService.getById(req.params.userId, req, req.body)
         .then(user => res.json(user))
         .catch(next);
 }
@@ -41,11 +42,12 @@ function updateUser(req, res, next) {
         username: Joi.string().empty(''),
         password: Joi.string().min(6).empty('')
     });
-    validateRequest(req, next, schema);
+    validateRequest(req, res, next, schema);
+    next();
 }
 
 function update(req, res, next) {
-    userService.update(req.params.userId, req.body)
+    userService.update(req.params.userId, req, req.body, res)
         .then(user => res.status(204).json(user))
         .catch(next);
 }
