@@ -15,6 +15,7 @@ app.get("/healthz", (req, res) => {
 });
 
 app.use('/v1', require('./user/user-controller'));
+app.use('/v1', require('./product/product-controller'));
 
 app.use(errorHandler);
 
