@@ -1,6 +1,8 @@
 const server = require('../../server');
 const request = require('supertest');
 var expect = require('chai').expect;
+const http = require('http');
+const assert = require('assert');
 
 const fn = async x => {
     return new Promise(resolve => {
@@ -16,10 +18,12 @@ const fn = async x => {
             username: "test@domain.com",
             password: "TestPassword123"
         };
-        it('Health Check', function() {
-            request(server).get('/healthz')
-                    .expect(200);
-        });
+        it('Health Test', function(done) {
+			http.get('http://127.0.0.1:8000/healthz', function(response) {
+				assert.equal(response.statusCode, 200);
+				done();
+			});
+		});
 
         // it('Create a user', async function() {
         //     const res = await request(server)
