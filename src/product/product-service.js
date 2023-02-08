@@ -57,6 +57,9 @@ if (!(req.body.hasOwnProperty('name')) || !(req.body.hasOwnProperty('description
     return;
 }
 
+if ((((((params.name).length == 0) || (params.description).length == 0) || (params.sku).length == 0) || (params.manufacturer).length == 0) || (params.quantity).length == 0) {
+   throw 'Required field is empty';
+}
 
 if (await db.Product.findOne({ where: { sku: params.sku } })) {
              throw 'SKU "' + params.sku + '" already exists, please enter a different SKU';
@@ -106,6 +109,11 @@ async function update(productId, params, req, res) {
         throw 'Enter all the required fields';
         return;
     }
+
+    if ((((((params.name).length == 0) || (params.description).length == 0) || (params.sku).length == 0) || (params.manufacturer).length == 0) || (params.quantity).length == 0) {
+        throw 'Required field is empty';
+     }
+
     if (params.password) {
         params.password = await bcrypt.hash(params.password, 10);
     }
@@ -145,8 +153,10 @@ async function getProduct(productId, req) {
 }
 
 async function deleteProduct(productId, req) {
+    console.log(productId);
     const product = await db.Product.findByPk(productId);
     if (!product) throw 'Product is not present in the database';
+    
     // if(user.dataValues.id != req.auth.user.dataValues.id){
     //     throw 'Unauthorized'
     // }
@@ -176,6 +186,14 @@ async function patch(productId, params, req, res) {
     //we get this user object from the db
     const product = await getProduct(productId);
 
+    if (!(req.body.hasOwnProperty('name')) && !(req.body.hasOwnProperty('description')) && !(req.body.hasOwnProperty('sku')) && !(req.body.hasOwnProperty('manufacturer')) && !(req.body.hasOwnProperty('quantity'))){
+        throw 'Enter a valid field';
+        return;
+    }
+    // if ((!req.body.hasOwnProperty('description'))){
+    //     throw 'Enter all the required fields';
+    //     return;
+    // }
     // if (!(req.body.hasOwnProperty('name')) || !(req.body.hasOwnProperty('description')) || !(req.body.hasOwnProperty('sku')) || !(req.body.hasOwnProperty('manufacturer')) || !(req.body.hasOwnProperty('quantity'))){
     //     throw 'Enter all the required fields';
     //     return;
@@ -200,6 +218,23 @@ async function patch(productId, params, req, res) {
     if (params.password) {
         params.password = await bcrypt.hash(params.password, 10);
     }
+
+    if(req.body.hasOwnProperty('name') && (params.name).length == 0) {
+        throw 'Required field is empty';
+     }
+    if(req.body.hasOwnProperty('description') && (params.description).length == 0) {
+        throw 'Required field is empty';
+     }
+    if(req.body.hasOwnProperty('sku') && (params.sku).length == 0) {
+        throw 'Required field is empty';
+     }
+    if(req.body.hasOwnProperty('manufacturer') && (params.manufacturer).length == 0) {
+        throw 'Required field is empty';
+     }
+    if(req.body.hasOwnProperty('quantity') && (params.quantity).length == 0) {
+        throw 'Required field is empty';
+     }
+
     let date_ob = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
      params.date_last_updated = date_ob
      const userId = req.auth.user.dataValues.id;

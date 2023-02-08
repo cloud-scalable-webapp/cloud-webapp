@@ -14,12 +14,14 @@ function errorHandler(err, res, res, next) {
             const productUpdateNotAvailable = err.includes('You are forbidden to update this product');
             const notValidQuantity = err.includes('Enter a valid quantity');
             const skuExists = err.includes('enter a different SKU');
-            const noData = err.includes('required fields');
+            const noData = err.includes('required field');
             const forbidden = err.includes('Forbidden');
+            const validField = err.includes('valid field');
+            const fieldEmpty = err.includes('Required field is empty');
             let statusCode;
             if(is404 || productDeleteNotFound ) {
                 statusCode = 404;
-            } else if (isUserAlreadyPresent || bad || email || notValidQuantity || skuExists || noData ) {
+            } else if (isUserAlreadyPresent || bad || email || notValidQuantity || skuExists || noData || validField || fieldEmpty ) {
                 statusCode = 400;
             }else if(userForbidden | productDeleteNotAvailable | productUpdateNotAvailable | forbidden ){
                 statusCode = 403;

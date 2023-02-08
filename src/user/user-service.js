@@ -42,6 +42,9 @@ async function create(params, req, res) {
         throw 'Enter all the required fields';
         return;
     }
+    if (((((params.first_name).length == 0) || (params.last_name).length == 0) || (params.username).length == 0) || (params.password).length == 0) {
+        throw 'Required field is empty';
+     }
     if (await db.User.findOne({ where: { username: params.username } })) {
         throw 'Username "' + params.username + '" is already registered, please enter a different username';
     }
@@ -72,6 +75,9 @@ async function update(accountId,req,  params, res) {
         throw 'Enter all the required fields';
         return;
     }
+    if (((((params.first_name).length == 0) || (params.last_name).length == 0) || (params.username).length == 0) || (params.password).length == 0) {
+        throw 'Required field is empty';
+     }
     //if changing the password this is to encrypt the new password
     if(user){
         if(params.username !== user.dataValues.username) {
