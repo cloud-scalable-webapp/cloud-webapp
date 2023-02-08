@@ -9,6 +9,11 @@ const userService = require('./user-service');
 router.post('/user', registerUser, register);
 router.get('/user/:userId', authorize, getById);
 router.put('/user/:userId', authorize, updateUser, update);
+router.put('/user/', authorize, updateUserNull);
+
+function updateUserNull(req,res){
+    res.status(400).send("No user ID entered");
+}
 
 module.exports = router;
 //To validate our req.body 

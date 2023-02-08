@@ -14,6 +14,8 @@ router.delete('/product/:productId', authorize, deleteProduct);
 router.delete('/product/', authorize, deleteProductNull);
 router.put('/product/', authorize, updateProductNull);
 router.patch('/product/', authorize, patchProductNull);
+router.post('/product/:productId', authorize, registerProductNull);
+router.get('/product/', getByIdNull);
 
 function deleteProductNull(req,res){
     res.status(400).send("No product ID entered");
@@ -25,6 +27,14 @@ function updateProductNull(req,res){
 
 function patchProductNull(req,res){
     res.status(400).send("No product ID entered");
+}
+
+function getByIdNull(req,res){
+    res.status(400).send("No product ID entered");
+}
+
+function registerProductNull(req,res){
+    res.status(400).send("Bad request");
 }
 
 module.exports = router;

@@ -75,8 +75,8 @@ params.owner_user_id = userId;
         params.password = await bcrypt.hash(params.password, 10);
     }
 
-    if (!(Number.isInteger(params.quantity) && params.quantity >= 1)){
-        throw 'Enter a valid quantity';
+    if (!(Number.isInteger(params.quantity) && params.quantity >= 0 && params.quantity <=100)){
+        throw 'Enter a valid quantity between 0 and 100';
     }
 
     //creating a record in the database using the create library (sequalize)
@@ -124,8 +124,8 @@ async function update(productId, params, req, res) {
         throw 'You are forbidden to update this product';
     }
 
-    if (!(Number.isInteger(params.quantity) && params.quantity >= 1)){
-        throw 'Enter a valid quantity';
+    if (!(Number.isInteger(params.quantity) && params.quantity >= 0 && params.quantity <=100)){
+        throw 'Enter a valid quantity between 0 and 100';
     }
     // console.log(req.params.productId);
     const new_data = await db.Product.findOne({ where: { id: req.params.productId } });
@@ -242,9 +242,9 @@ async function patch(productId, params, req, res) {
         throw 'You are forbidden to update this product';
     }
     if (req.body.hasOwnProperty('quantity')){
-    if (!(Number.isInteger(params.quantity) && params.quantity >= 1)){
-        throw 'Enter a valid quantity';
-    }
+        if (!(Number.isInteger(params.quantity) && params.quantity >= 0 && params.quantity <=100)){
+            throw 'Enter a valid quantity between 0 and 100';
+        }
 }
     // console.log(req.params.productId);
     if (req.body.hasOwnProperty('sku')){
