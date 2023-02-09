@@ -20,7 +20,7 @@ const fn = async x => {
         };
         it('Health Test', function(done) {
 			http.get('http://127.0.0.1:8000/healthz', function(response) {
-				assert.equal(response.statusCode, 400);
+				assert.equal(response.statusCode, 200);
 				done();
 			});
 		});
