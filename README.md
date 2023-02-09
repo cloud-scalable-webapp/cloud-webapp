@@ -23,6 +23,19 @@ Install:
 * The application runs in localhost on port 8000
 * Test API endpoints using Postman
 
+## To create a user, enter the following fields in Postman:
+* first_name
+* last_name
+* username (must be unique for each user)
+* password
+
+## To create a product, enter the following fields in Postman:
+* name
+* description
+* sku (must be unique for each product)
+* manufacturer
+* quantity (between 0 and 100)
+
 ## Running Tests
 * To run test, use "npm run test" command
 

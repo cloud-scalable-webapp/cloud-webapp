@@ -185,11 +185,21 @@ function omitPassword(user) {
 async function patch(productId, params, req, res) {
     //we get this user object from the db
     const product = await getProduct(productId);
-
-    if (!(req.body.hasOwnProperty('name')) && !(req.body.hasOwnProperty('description')) && !(req.body.hasOwnProperty('sku')) && !(req.body.hasOwnProperty('manufacturer')) && !(req.body.hasOwnProperty('quantity'))){
+    var fields = ['name','description','sku','manufacturer','quantity']
+    var cnt = 0
+    for(var i = 0; i < 5; i++){
+        if(req.body.hasOwnProperty(fields[i])){
+            cnt += 1
+        }
+    }
+    if (Object.keys(req.body).length > cnt){
         throw 'Enter a valid field';
         return;
     }
+    // if (!(req.body.hasOwnProperty('name')) || !(req.body.hasOwnProperty('description')) || !(req.body.hasOwnProperty('sku')) || !(req.body.hasOwnProperty('manufacturer')) || !(req.body.hasOwnProperty('quantity'))){
+    //     throw 'Enter a valid field';
+    //     return;
+    // }
     // if ((!req.body.hasOwnProperty('description'))){
     //     throw 'Enter all the required fields';
     //     return;

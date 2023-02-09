@@ -10,8 +10,18 @@ router.post('/user', registerUser, register);
 router.get('/user/:userId', authorize, getById);
 router.put('/user/:userId', authorize, updateUser, update);
 router.put('/user/', authorize, updateUserNull);
+router.post('/user/:userId', registerUserNull);
+router.get('/user/', authorize, getByIdNull);
 
 function updateUserNull(req,res){
+    res.status(400).send("No user ID entered");
+}
+
+function registerUserNull(req,res){
+    res.status(400).send("Bad request");
+}
+
+function getByIdNull(req,res){
     res.status(400).send("No user ID entered");
 }
 
