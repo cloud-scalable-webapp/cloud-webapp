@@ -9,6 +9,21 @@ const userService = require('./user-service');
 router.post('/user', registerUser, register);
 router.get('/user/:userId', authorize, getById);
 router.put('/user/:userId', authorize, updateUser, update);
+router.put('/user/', authorize, updateUserNull);
+router.post('/user/:userId', registerUserNull);
+router.get('/user/', authorize, getByIdNull);
+
+function updateUserNull(req,res){
+    res.status(400).send("No user ID entered");
+}
+
+function registerUserNull(req,res){
+    res.status(400).send("Bad request");
+}
+
+function getByIdNull(req,res){
+    res.status(400).send("No user ID entered");
+}
 
 module.exports = router;
 //To validate our req.body 
@@ -19,17 +34,18 @@ function registerUser(req, res, next) {
         username: Joi.string().required(),
         password: Joi.string().min(6).required()
     });
-    validateRequest(req, next, schema);
+    validateRequest(req, res, next, schema);
+    next();
 }
 
 function register(req, res, next) {
-    userService.create(req.body)
+    userService.create(req.body,req,res)
         .then(user => res.status(201).json(user))
         .catch(next);
 }
 
 function getById(req, res, next) {
-    userService.getById(req.params.userId)
+    userService.getById(req.params.userId, req, req.body)
         .then(user => res.json(user))
         .catch(next);
 }
@@ -41,11 +57,12 @@ function updateUser(req, res, next) {
         username: Joi.string().empty(''),
         password: Joi.string().min(6).empty('')
     });
-    validateRequest(req, next, schema);
+    validateRequest(req, res, next, schema);
+    next();
 }
 
 function update(req, res, next) {
-    userService.update(req.params.userId, req.body)
+    userService.update(req.params.userId, req, req.body, res)
         .then(user => res.status(204).json(user))
         .catch(next);
 }
