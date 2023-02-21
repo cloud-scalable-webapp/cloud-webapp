@@ -45,7 +45,7 @@ source "amazon-ebs" "webapp" {
   }
 
   instance_type = "t2.micro"
-  source_ami    = var.source_ami
+  source_ami    = var.sources_ami
   ssh_username  = var.ssh_username
 
   launch_block_device_mappings {
