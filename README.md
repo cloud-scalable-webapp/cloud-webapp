@@ -39,6 +39,21 @@ Install:
 ## Running Tests
 * To run test, use "npm run test" command
 
+## Building AMI using Packer and deploying the webapp globally:
+* Install Packer on your local system
+* Run the following commands:
+1. packer init
+2. packer validate ami.pkr.hcl
+3. packer build ami.pkr.hcl
+
+Once packer build command is run, an AMI will be created in dev account and shared with demo account using the default variables.
+
+In order to create an AMI using self-defined variables,  you may customize the command mentioned below and run it:
+
+packer build -var 'name=csye' -var 'instance_type=t2.micro' -var 'region=us-east-1' -var 'profile=dev' -var 'source_ami=ami-0dfcb1ef8550277af' -var 'ami_regions=["us-east-1"]' -var 'ssh_username=ec2-user' ami.pkr.hcl
+
+Once packer AMI has been built and shared with dev/demo accounts, you can create an EC2 instance via AWS console or Terraform using the custom AMI which will install the prerequisite softwares, make the necessary configuration changes, upload application files and make the webapp available globally.
+
 ## Libraries Used:
 
 * 1. Nodemon
@@ -50,3 +65,4 @@ Install:
 * 7. sqlite3
 * 8. chai
 * 9. supertest
+* 10. Packer
