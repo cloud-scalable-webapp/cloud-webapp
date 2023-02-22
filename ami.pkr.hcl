@@ -6,9 +6,20 @@ packer {
     }
   }
 }
-variable "region" {
+variable "name" {
   type    = string
-  default = "us-east-1"
+  default = "csye6225"
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
+}
+
+variable "region" {
+  type        = string
+  default     = "us-east-1"
+  description = "Region where EC2 should be deployed"
 }
 
 variable "profile" {
@@ -26,6 +37,12 @@ variable "ssh_username" {
   default = "ec2-user"
 }
 
+variable "ami_regions" {
+  type        = list(string)
+  default     = ["us-east-1"]
+  description = "Regions where AMI should be copied"
+}
+
 # https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "webapp" {
   profile               = var.profile
@@ -35,16 +52,14 @@ source "amazon-ebs" "webapp" {
   ami_users             = ["307298369337", "209538387374"]
   force_deregister      = true
   force_delete_snapshot = true
-  ami_regions = [
-    "us-east-1",
-  ]
+  ami_regions           = var.ami_regions
 
   aws_polling {
     delay_seconds = 120
     max_attempts  = 50
   }
 
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
   source_ami    = var.source_ami
   ssh_username  = var.ssh_username
 
@@ -53,6 +68,9 @@ source "amazon-ebs" "webapp" {
     device_name           = "/dev/xvda"
     volume_size           = 8
     volume_type           = "gp2"
+  }
+  tags = {
+    Name = var.name
   }
 }
 
