@@ -37,7 +37,7 @@ variable "ssh_username" {
   default = "ec2-user"
 }
 
-variable "ami_regions" {
+variable "ami_region" {
   type        = list(string)
   default     = ["us-east-1"]
   description = "Regions where AMI should be copied"
