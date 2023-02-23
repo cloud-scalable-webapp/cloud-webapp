@@ -67,4 +67,3 @@ Note that the AMI is specific to a region. If you want to deploy the AMI to mult
 * 7. sqlite3
 * 8. chai
 * 9. supertest
-* 10. Packer
