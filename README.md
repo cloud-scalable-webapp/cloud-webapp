@@ -54,6 +54,8 @@ packer build -var 'name=csye' -var 'instance_type=t2.micro' -var 'region=us-east
 
 Once packer AMI has been built and shared with dev/demo accounts, you can create an EC2 instance via AWS console or Terraform using the custom AMI which will install the prerequisite softwares, make the necessary configuration changes, upload application files and make the webapp available globally.
 
+Note that the AMI is specific to a region. If you want to deploy the AMI to multiple regions, pass the region names as a variable using ami_regions.
+
 ## Libraries Used:
 
 * 1. Nodemon
