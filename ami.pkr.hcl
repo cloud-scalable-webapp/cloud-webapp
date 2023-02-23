@@ -16,7 +16,7 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "regions" {
+variable "region" {
   type        = string
   default     = "us-east-1"
   description = "Region where EC2 should be deployed"
@@ -37,7 +37,7 @@ variable "ssh_username" {
   default = "ec2-user"
 }
 
-variable "ami_region" {
+variable "ami_regions" {
   type        = list(string)
   default     = ["us-east-1"]
   description = "Regions where AMI should be copied"
