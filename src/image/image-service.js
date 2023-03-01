@@ -105,7 +105,7 @@ if(!product){
           }
 const userId = req.auth.user.dataValues.id;
   if(userId != product.dataValues.owner_user_id){
-        throw 'You are forbidden to fetch this product';
+        throw 'You are forbidden to access this product';
     }
 const image = (await db.Image.findAll({ where: { product_id: productId } }));
     return image;
@@ -123,7 +123,7 @@ if(!product){
           }
 const userId = req.auth.user.dataValues.id;
   if(userId != product.dataValues.owner_user_id){
-        throw 'You are forbidden to fetch this product';
+        throw 'You are forbidden to access this product';
     }
   const imageId = req.params.image_id;
   const image = await db.Image.findOne({ where: { image_id: image_id } })
@@ -132,7 +132,7 @@ const userId = req.auth.user.dataValues.id;
           return;     
 	}
 if (imageId && productId != image.dataValues.product_id) {
-                    throw 'Forbidden';
+                    throw 'Not Found';
                     return;
                 }
     return image;
@@ -146,7 +146,7 @@ if(!product){
           }
 const userId = req.auth.user.dataValues.id;
   if(userId != product.dataValues.owner_user_id){
-        throw 'You are forbidden to fetch this product';
+        throw 'You are forbidden to access this product';
     }
   const imageId = req.params.image_id;
   const image = await db.Image.findOne({ where: { image_id: image_id } })
@@ -169,16 +169,11 @@ if (imageId && productId == image.dataValues.product_id) {
 	db.Image.destroy({ where: { image_id: image_id } })
     s3.deleteObject(params, function (err, data) {
         if (err) {
-            throw 'Forbidden';
+            throw 'Bad Request';
         }
   })
 }
 else {
-throw 'Forbidden';
+throw 'Not Found';
 }
 }
-
-// function omitValues(document) {
-//     const { id, updatedAt, ...documentWithoutId } = document;
-//     return documentWithoutId;
-// }

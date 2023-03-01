@@ -11,9 +11,14 @@ router.get('/product/:productId/image', authorize, getAllImage);
 router.get('/product/:productId/image/:image_id', authorize, getImageById);
 router.delete('/product/:productId/image/:image_id', authorize, deleteImage);
 router.post('/product/:productId/image/:image_id', authorize, uploadNull);
+router.delete('/product/:productId/image', authorize, deleteNull);
 
 function uploadNull(req,res){
-    res.status(400).send("Incorrect URL, remove the image ID");
+    res.status(400).send("Incorrect URL");
+}
+
+function deleteNull(req,res){
+    res.status(400).send("Incorrect URL");
 }
 
 module.exports = router;
