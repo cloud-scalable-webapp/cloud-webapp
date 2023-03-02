@@ -4,37 +4,45 @@
     "description": "",
     "main": "./server.js",
     "scripts": {
-      "dev": "nodemon ./server.js",
-      "test": "NODE_ENV=test mocha --delay test/**/*.js --exit"
+        "dev": "nodemon ./server.js",
+        "test": "NODE_ENV=test mocha --delay test/**/*.js --exit"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/lokesh1306/webapp"
+        "type": "git",
+        "url": "git+https://github.com/lokesh1306/webapp"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/lokesh1306/webapp/issues"
+        "url": "https://github.com/lokesh1306/webapp/issues"
     },
     "homepage": "https://github.com/lokesh1306/webapp#readme",
     "devDependencies": {
-      "nodemon": "^2.0.20"
+        "@types/node-fetch": "^2.6.2",
+        "nodemon": "^2.0.20"
     },
     "dependencies": {
-      "bcryptjs": "^2.4.3",
-      "body-parser": "^1.19.0",
-      "chai": "^4.3.6",
-      "cors": "^2.8.5",
-      "email-validator": "^2.0.4",
-      "express": "^4.17.1",
-      "express-jwt": "^6.0.0",
-      "joi": "^17.2.0",
-      "mocha": "^10.0.0",
-      "mysql2": "^2.1.0",
-      "rootpath": "^0.1.2",
-      "sequelize": "^6.3.4",
-      "sqlite3": "^5.1.2",
-      "supertest": "^6.3.0"
+        "aws-sdk": "^2.1241.0",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "chai": "^4.3.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "email-validator": "^2.0.4",
+        "express": "^4.17.1",
+        "express-fileupload": "^1.4.0",
+        "express-jwt": "^6.0.0",
+        "file-type": "^18.2.1",
+        "joi": "^17.2.0",
+        "mocha": "^10.0.0",
+        "multer": "^1.4.5-lts.1",
+        "mysql2": "^2.1.0",
+        "node-fetch": "^2.6.1",
+        "rootpath": "^0.1.2",
+        "sequelize": "^6.3.4",
+        "sharp": "^0.31.3",
+        "sqlite3": "^5.1.2",
+        "supertest": "^6.3.0"
     }
-  }  
+}
