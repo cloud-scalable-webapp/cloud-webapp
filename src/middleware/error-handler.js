@@ -12,7 +12,7 @@ function errorHandler(err, res, res, next) {
             const productDeleteNotFound = err.includes('Product is not present in the database');
             const productDeleteNotAvailable = err.includes('You cannot delete this product');
             const productUpdateNotAvailable = err.includes('You are forbidden to update this product');
-            const productFetchNotAvailable = err.includes('You are forbidden to fetch this product');
+            const productFetchNotAvailable = err.includes('You are forbidden to access this product');
             const notValidQuantity = err.includes('Enter a valid quantity');
             const skuExists = err.includes('enter a different SKU');
             const noData = err.includes('required field');

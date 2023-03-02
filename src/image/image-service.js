@@ -132,7 +132,7 @@ const userId = req.auth.user.dataValues.id;
           return;     
 	}
 if (imageId && productId != image.dataValues.product_id) {
-                    throw 'Not Found';
+                    throw 'Image not found';
                     return;
                 }
     return image;
@@ -174,6 +174,6 @@ if (imageId && productId == image.dataValues.product_id) {
   })
 }
 else {
-throw 'Not Found';
+throw 'Image not found';
 }
 }
