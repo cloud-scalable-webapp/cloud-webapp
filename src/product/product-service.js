@@ -1,5 +1,8 @@
 const { INTEGER } = require('sequelize');
 const db = require('../utils/database');
+const env = process.env;
+const bucketName = env.S3_BUCKET_NAME;
+const AWS = require('aws-sdk');
 
 module.exports = {
     authenticate,
@@ -9,6 +12,16 @@ module.exports = {
     patch,
     deleteProduct
 };
+
+const s3 = (env.NODE_ENV == "development") ? 
+    new AWS.S3({
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        },
+    })
+    :
+    new AWS.S3()
 
 let xx;
 async function authenticate({ username, password}) {
@@ -172,9 +185,34 @@ async function deleteProduct(productId, req) {
     if(userId != product.dataValues.owner_user_id){
         throw 'You cannot delete this product!'
     } else {
+const getAllImages = await db.Image.findAll({
+        attributes: ['image_id', 'product_id', 'file_name', 'date_created', 's3_bucket_path'],
+        where: {
+            product_id: productId
+        }
+    });
+
+    if( getAllImages.length > 0){
+    for (let i = 0; i < getAllImages.length; i++) {
+        const image = getAllImages[i];
+        const imageparams = image.dataValues.s3_bucket_path.split("/");
+        const key = imageparams[3]+"/"+imageparams[4]+"/"+ imageparams[5];
+        const imageId = image.dataValues.image_id;
+        const params = {
+        Bucket: bucketName,
+	    Key: key,
+     };
+        db.Image.destroy({ where: { image_id: imageId } })
+        s3.deleteObject(params, function (err, data) {
+        if (err) {
+            throw 'Bad Request';
+        }
+  })
+    }
     db.Product.destroy({ where: { id: productId } })
 }
     return product;
+}
 }
 
 function omitPassword(user) {
