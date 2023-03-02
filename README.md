@@ -36,6 +36,22 @@ Install:
 * manufacturer
 * quantity (between 0 and 100)
 
+## To add an image to a product, select the image in Postman
+
+## Endpoints:
+* Health check: GET: /healthz
+* Create a user account: POST: /v1/user
+* Get user information: GET: /v1/user/userID
+* Update user information: PUT: /v1/user/userID
+* Add a product: POST: /v1/product
+* Get product information: /v1/product/productID
+* Update product information: PUT/PATH: /v1/product/productID
+* Delete a product: DELETE: /v1/product/productID
+* Add an image to a product: POST: /v1/product/productID/image
+* Get all images associated with a product: GET: /v1/product/productID/image
+* Get a specific image: GET: /v1/product/productID/image/imageID
+* Delete an image: DELETE: /v1/product/productID/image/imageID
+
 ## Running Tests
 * To run test, use "npm run test" command
 
