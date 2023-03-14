@@ -30,4 +30,4 @@ jobs:
       run: packer validate ami.pkr.hcl
 
     - name: Building Packer Template
-      run: packer build ami.pkr.hcl -var "region=${{secrets.AWS_REGION}}" -var "ami_users=${{secrets.AWS_AMI_USERS}}"
+      run: packer build -var "region=${{secrets.AWS_REGION}}" -var "ami_users=${{secrets.AWS_AMI_USERS}}" ami.pkr.hcl 
