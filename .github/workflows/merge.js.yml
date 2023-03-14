@@ -32,4 +32,4 @@ jobs:
     - name: Building Packer Template
       run: packer build \
            -var "region=${{secrets.AWS_REGION}}" \
-           -var "ami_users=${{secrets.AWS_AMI_USERS}}" 
+           -var "ami_users=${{secrets.AWS_AMI_USERS}}" ami.pkr.hcl
