@@ -2,10 +2,8 @@
 name: Building AMI on Merge with Main
 
 env:
-  AWS_REGION: ${{secrets.AWS_REGION}}
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-  AWS_AMI_USERS: ${{secrets.AWS_AMI_USERS}}
 on:
   push:
     branches: [ main ]
@@ -30,4 +28,4 @@ jobs:
       run: packer validate ami.pkr.hcl
 
     - name: Building Packer Template
-      run: packer build ami.pkr.hcl -var "ami_users=${{ env.AWS_AMI_USERS }}"
+      run: packer build ami.pkr.hcl -var "region=${{ AWS_REGION }}" -var "ami_users=${{ AWS_AMI_USERS }}"
