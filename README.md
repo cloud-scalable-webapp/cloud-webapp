@@ -1,4 +1,4 @@
-# CSYE6225 webapp
+# CSYE 6225 webapp
 ## Technology Stack
 
 * Backend Technology - NodeJS
