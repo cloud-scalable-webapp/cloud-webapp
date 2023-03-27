@@ -96,6 +96,11 @@ build {
     destination = "/home/ec2-user/webapp"
   }
 
+  provisioner "file" {
+    source      = "amazon-cloudwatch-agent.json"
+    destination = "/tmp/amazon-cloudwatch-agent.json"
+  }
+
   provisioner "shell" {
     environment_vars = [
       "CHECKPOINT_DISABLE=1"
