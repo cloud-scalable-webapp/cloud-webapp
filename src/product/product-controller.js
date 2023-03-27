@@ -4,7 +4,7 @@ const Joi = require('joi');
 const validateRequest = require('../middleware/validate');
 const authorize = require('../middleware/basic-auth')
 const productService = require('./product-service');
-
+const statsdClient = require('../utils/statsdUtil.js');
 // routes
 router.post('/product', authorize, registerProduct, register);
 router.get('/product/:productId', getById);
@@ -52,6 +52,7 @@ function registerProduct(req, res, next) {
 }
 
 function register(req, res, next) {
+    statsdClient.increment('post_/product');
     productService.create(req.body,req,res)
         .then(user => res.status(201).json(user))
         .catch(next);
@@ -71,18 +72,21 @@ function updateProduct(req, res, next) {
 }
 
 function update(req, res, next) {
+    statsdClient.increment('put_/product');
     productService.update(req.params.productId, req.body,req,res)
         .then(product => res.status(204).json(product))
         .catch(next);
 }
 
 function getById(req, res, next) {
+    statsdClient.increment('get_/product');
     productService.getById(req.params.productId, req, req.body)
         .then(product => res.json(product))
         .catch(next);
 }
 
 function deleteProduct(req, res, next) {
+    statsdClient.increment('delete_/product');
     productService.deleteProduct(req.params.productId, req, req.body)
         .then(product => res.status(204).json(product))
         .catch(next);
@@ -102,6 +106,7 @@ function patchProduct(req, res, next) {
 }
 
 function patch(req, res, next) {
+    statsdClient.increment('patch_/product');
     productService.patch(req.params.productId, req.body,req,res)
         .then(product => res.status(204).json(product))
         .catch(next);

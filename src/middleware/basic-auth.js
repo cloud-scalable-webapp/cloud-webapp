@@ -4,6 +4,7 @@ module.exports = authorize;
 async function authorize(req, res, next) {
 
     if (!req.headers.authorization || req.headers.authorization.indexOf('Basic ') === -1) {
+        logger.error("Missing Authorization Header");
         return res.status(401).json({ message: 'Missing Authorization Header' });
     }
 
@@ -14,6 +15,7 @@ async function authorize(req, res, next) {
     const  user = await userService.authenticate({ username, password});
   
     if (!user) {
+        logger.error("Invalid Authentication Credentials");
         return res.status(401).json({ message: 'Invalid Authentication Credentials' });
     }
     req.auth = {};
