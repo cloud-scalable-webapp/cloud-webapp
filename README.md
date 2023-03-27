@@ -72,6 +72,11 @@ Once packer AMI has been built and shared with dev/demo accounts, you can create
 
 Note that the AMI is specific to a region. If you want to deploy the AMI to multiple regions, pass the region names as a variable using ami_regions.
 
+## Application Logs & Metrics
+Once the application has been deployed:
+* Application logs (collected using CloudWatch Agent) can be accessed from AWS->CloudWatch->Log Groups->csye6225->webapp
+* Application metrics (collected using StatsD) can be accessed from AWS->CloudWatch->All Metrics->CWAgent
+
 ## Libraries Used:
 
 * 1. Nodemon
