@@ -19,6 +19,7 @@ app.use(cors());
 
 app.get("/healthz", (req, res) => {
     logger.info("Health check successful!");
+    statsdClient.increment('get_/healthz');
     res.status(200).send({"statusCode":200, "message":"Health check successful!"});
 });
 
