@@ -178,7 +178,7 @@ async function update(productId, params, req, res) {
 async function getProduct(productId, req) {
     logger.info("Finding the product using ID in the database");
     const product = await db.Product.findByPk(productId);
-    if (!product)  throw 'Product is not present in the database' && logger.error("Product doesn't exist in the database");
+    if (!product)  throw 'Product is not present in the database'; logger.error("Product doesn't exist in the database");
     // if(product.dataValues.userId != req.auth.user.dataValues.id){
     //     throw 'You cannot delete this product!'
     // }
@@ -189,7 +189,7 @@ async function deleteProduct(productId, req) {
     console.log(productId);
     logger.info("Finding the product using ID in the database");
     const product = await db.Product.findByPk(productId);
-    if (!product) throw 'Product is not present in the database' && logger.error("Product doesn't exist in the database");
+    if (!product) throw 'Product is not present in the database'; logger.error("Product doesn't exist in the database");
     // if(user.dataValues.id != req.auth.user.dataValues.id){
     //     throw 'Unauthorized'
     // }
@@ -207,6 +207,8 @@ async function deleteProduct(productId, req) {
         logger.error("You cannot delete this product!");
         throw 'You cannot delete this product!'
     } else {
+        logger.info("Deleting the product from the database");
+    db.Product.destroy({ where: { id: productId } })
 const getAllImages = await db.Image.findAll({
         attributes: ['image_id', 'product_id', 'file_name', 'date_created', 's3_bucket_path'],
         where: {
@@ -232,8 +234,6 @@ const getAllImages = await db.Image.findAll({
         }
   })
     }
-    logger.info("Deleting the product from the database");
-    db.Product.destroy({ where: { id: productId } })
 }
     return product;
 }
