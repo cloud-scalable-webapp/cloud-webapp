@@ -121,7 +121,10 @@ async function update(accountId,req,  params, res) {
 async function getUser(accountId, req) {
     const user = await db.User.findByPk(accountId);
     logger.info("Finding the user using ID in the database");
-    if (!user) throw 'User not found in the database'; logger.error("User doesn't exist in the database");
+    if (!user) {
+        logger.error("User doesn't exist in the database");
+        throw 'User not found in the database' 
+    }
     if(user.dataValues.id != req.auth.user.dataValues.id){
         logger.error("Forbidden");
         throw 'Forbidden'
