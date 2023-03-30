@@ -1,6 +1,7 @@
 require('rootpath')();
 const express = require('express');
 const fileUpload = require('express-fileupload');
+const statsdClient= require("../src/utils/statsdUtil.js");
 require('dotenv').config();
 const env = process.env;
 
@@ -19,6 +20,7 @@ app.use(cors());
 
 app.get("/healthz", (req, res) => {
     logger.info("Health check successful!");
+    statsdClient.increment('get_/healthz');
     res.status(200).send({"statusCode":200, "message":"Health check successful!"});
 });
 
