@@ -1,7 +1,7 @@
 require('rootpath')();
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const statsdClient= require("../utils/statsdUtil.js");
+const statsdClient= require("../src/utils/statsdUtil.js");
 require('dotenv').config();
 const env = process.env;
 
