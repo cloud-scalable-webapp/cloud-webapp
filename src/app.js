@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/healthz", (req, res) => {
-    logger.info("Health check successful!");
+    logger.info("Health check successful");
     statsdClient.increment('get_/healthz');
-    res.status(200).send({"statusCode":200, "message":"Health check successful!"});
+    res.status(200).send({"statusCode":200, "message":"Health check successful"});
 });
 
 app.get("/check", (req, res) => {
