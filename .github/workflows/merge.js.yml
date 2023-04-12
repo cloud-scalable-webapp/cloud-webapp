@@ -36,7 +36,7 @@ jobs:
       run: cat ami.txt | while read file; do aws ec2 create-launch-template-version --launch-template-name asg_launch_config --version-description version1 --source-version 1 --launch-template-data "ImageId=$file"; done
 
     - name: Update the autoscaling group  
-      run: aws autoscaling update-auto-scaling-group --auto-scaling-group-name terraform* --launch-template LaunchTemplateName=asg_launch_config,Version='$Latest'
+      run: aws autoscaling update-auto-scaling-group --auto-scaling-group-name $(aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[?starts_with(AutoScalingGroupName,'terraform-')].AutoScalingGroupName" --output text) --launch-template LaunchTemplateName=asg_launch_config,Version='$Latest'
 
     - name: Instance refresh
-      run: aws autoscaling start-instance-refresh --auto-scaling-group-name terraform*
+      run: aws autoscaling start-instance-refresh --auto-scaling-group-name $(aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[?starts_with(AutoScalingGroupName,'terraform-')].AutoScalingGroupName" --output text)
