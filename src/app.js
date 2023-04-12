@@ -24,6 +24,12 @@ app.get("/healthz", (req, res) => {
     res.status(200).send({"statusCode":200, "message":"Health check successful!"});
 });
 
+app.get("/check", (req, res) => {
+    logger.info("Health check successful!");
+    statsdClient.increment('get_/check');
+    res.status(200).send({"statusCode":200, "message":"Health check successful!"});
+});
+
 app.use('/v1', require('./user/user-controller'));
 app.use('/v1', require('./product/product-controller'));
 app.use('/v1', require('./image/image-controller'));

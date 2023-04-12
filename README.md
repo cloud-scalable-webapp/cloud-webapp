@@ -39,7 +39,7 @@ Install:
 ## To add an image to a product, select the image in Postman
 
 ## Endpoints:
-* Health check: GET: /healthz
+* Health check: GET: /healthz or /check
 * Create a user account: POST: /v1/user
 * Get user information: GET: /v1/user/userID
 * Update user information: PUT: /v1/user/userID
