@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/healthz", (req, res) => {
-    logger.info("Health check successful");
+    logger.info("Health check successful!");
     statsdClient.increment('get_/healthz');
-    res.status(200).send({"statusCode":200, "message":"Health check successful"});
+    res.status(200).send({"statusCode":200, "message":"Health check successful!"});
 });
 
 app.get("/check", (req, res) => {
@@ -30,9 +30,9 @@ app.get("/check", (req, res) => {
     res.status(200).send({"statusCode":200, "message":"Health check successful!"});
 });
 
-app.use('/v2', require('./user/user-controller'));
-app.use('/v2', require('./product/product-controller'));
-app.use('/v2', require('./image/image-controller'));
+app.use('/v1', require('./user/user-controller'));
+app.use('/v1', require('./product/product-controller'));
+app.use('/v1', require('./image/image-controller'));
 
 app.use(errorHandler);
 

@@ -33,7 +33,7 @@ jobs:
       run: packer build -var "ami_users=${{env.AWS_AMI_USERS}}" ami.pkr.hcl 2>&1 | sudo tee output.txt; tail -2 output.txt | head -2 | awk 'match($0, /ami-.*/) { print substr($0, RSTART, RLENGTH) }' >> ami.txt
 
     - name: Create new launch template
-      run: cat ami.txt | while read file; do aws ec2 create-launch-template-version --launch-template-name asg_launch_config --version-description version1 --source-version 1 --launch-template-data "ImageId=$file"; done
+      run: cat ami.txt | while read file; do aws ec2 create-launch-template-version --launch-template-name asg_launch_config --version-description latest --source-version 1 --launch-template-data "ImageId=$file"; done
 
     - name: Update the autoscaling group  
       run: aws autoscaling update-auto-scaling-group --auto-scaling-group-name $(aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[?starts_with(AutoScalingGroupName,'terraform-')].AutoScalingGroupName" --output text) --launch-template LaunchTemplateName=asg_launch_config,Version='$Latest'
