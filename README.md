@@ -77,6 +77,9 @@ Once the application has been deployed:
 * Application logs (collected using CloudWatch Agent) can be accessed from AWS->CloudWatch->Log Groups->csye6225->webapp
 * Application metrics (collected using StatsD) can be accessed from AWS->CloudWatch->All Metrics->CWAgent
 
+## CI/CD
+The application includes Github workflows which upon merge with main, will automatically create a new AMI, update the launch template, autoscaling group and refresh the existing EC2 instances to use the new AMI
+
 ## Libraries Used:
 
 * 1. Nodemon
